@@ -1,8 +1,10 @@
 <img src="https://reactql.org/docs/images/reactql-logo.svg" alt="ReactQL" width="278" height="77" />
 
-# Starter kit code (full version)
+# Starter kit code (Typescript version)
 
 React+GraphQL front-end starter kit. Universal: Browser + SSR.
+
+Written in [Typescript](http://www.typescriptlang.org/).
 
 ## Features
 
