@@ -74,6 +74,7 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
                 ],
                 plugins: [
                   'syntax-dynamic-import',
+                  'transform-regenerator',
                 ],
               },
               useCache: true,

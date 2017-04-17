@@ -5,13 +5,15 @@
 import React, { SFC } from 'react';
 
 // GraphQL
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, InjectedGraphQLProps } from 'react-apollo';
 
 // Routing
 import { Link, Route, match, RouteComponentProps } from 'react-router-dom';
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
+
+import {compose, pure} from 'recompose';
 
 // Styles
 import css from './styles.css';
@@ -70,30 +72,30 @@ const query = gql`
   }
 `;
 
-interface MessageProps {
-  data: {
-    allMessages?: Array<{
-      text: string;
-    }>;
-    loading: boolean;
-  }
+interface MessageData {
+  allMessages?: Array<{
+    text: string;
+  }>;
 }
 
-// ... then, let's create the component to display the message
-const Message: SFC<MessageProps> = ({ data }) => {
-  const message = data.allMessages && data.allMessages[0].text;
-  const isLoading = data.loading ? 'yes' : 'nope';
+// ... then, let's create the component and decorate it with the `graphql`
+// HOC that will automatically populate `this.props` with the query data
+// once the GraphQL API request has been completed
+const connect = compose<InjectedGraphQLProps<MessageData>, {}>(
+  graphql(query),
+  pure
+);
+
+const GraphQLMessage = connect(({data}) => {
+  const message = data!.allMessages && data!.allMessages![0].text;
+  const isLoading = data!.loading ? 'yes' : 'nope';
   return (
     <div>
       <h2>Message from GraphQL server: <em>{message}</em></h2>
       <h2>Currently loading?: {isLoading}</h2>
     </div>
   );
-};
-
-// Finally, wrap the component in the GraphQL HOC 'listener' which will
-// inject props data down once the GraphQL API request has been completed
-const GraphQLMessage = graphql(query)(Message) as SFC<{}>;
+});
 
 // Example of CSS, SASS and LESS styles being used together
 const Styles = () => (
