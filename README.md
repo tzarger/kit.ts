@@ -1,5 +1,7 @@
 # **(TS version not yet implemented; coming soon!)**
-
+---
+---
+---
 <img src="https://reactql.org/docs/images/reactql-logo.svg" alt="ReactQL" width="278" height="77" />
 
 # Starter kit code (Typescript version)
