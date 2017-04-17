@@ -16,6 +16,9 @@ import webpack from 'webpack';
 // We'll use `webpack-config` to extend the base config we've already created
 import WebpackConfig from 'webpack-config';
 
+// Plugin that forks TypeScript's checker to a separate process
+import { CheckerPlugin } from 'awesome-typescript-loader';
+
 // other plug-ins
 // import CopyWebpackPlugin from 'copy-webpack-plugin';
 
@@ -48,33 +51,32 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
   // Modules specific to our browser bundle
   module: {
     loaders: [
-      // .js(x) loading
+      // .(j|t)s(x) loading
       {
-        test: /\.jsx?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         loaders: [
           {
-            loader: 'babel-loader',
+            loader: 'awesome-typescript-loader',
             query: {
-              // Ignore the .babelrc at the root of our project-- that's only
-              // used to compile our webpack settings, NOT for bundling
-              babelrc: false,
-              presets: [
-                ['env', {
-                  // Enable tree-shaking by disabling commonJS transformation
-                  modules: false,
-                  // Exclude default regenerator-- we want to enable async/await
-                  // so we'll do that with a dedicated plugin
-                  exclude: ['transform-regenerator'],
-                }],
-                // Transpile JSX code
-                'react',
-              ],
-              plugins: [
-                'transform-object-rest-spread',
-                'syntax-dynamic-import',
-                'transform-regenerator',
-              ],
+              useBabel: true,
+              babelOptions: {
+                presets: [
+                  ['env', {
+                    // By default, target only modern browsers
+                    targets: {
+                      browsers: 'last 3 versions',
+                    },
+                  }],
+                  // Transpile JSX code
+                  'react',
+                ],
+                plugins: [
+                  'syntax-dynamic-import',
+                ],
+              },
+              useCache: true,
+              cacheDirectory: '.awcache-browser',
             },
           },
         ],
@@ -99,6 +101,9 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
     new webpack.DefinePlugin({
       SERVER: false,
     }),
+
+    // Fork TypeScript checker to a separate process
+    new CheckerPlugin(),
 
     // new CopyWebpackPlugin([
     //   {

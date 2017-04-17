@@ -12,6 +12,9 @@ import WebpackConfig from 'webpack-config';
 // to those modules locally and they don't need to wind up in the bundle file
 import nodeModules from 'webpack-node-externals';
 
+// Plugin that forks TypeScript's checker to a separate process
+import { CheckerPlugin } from 'awesome-typescript-loader';
+
 import PATHS from '../../config/paths';
 
 // ----------------------
@@ -108,21 +111,25 @@ export default new WebpackConfig().extend({
           'less-loader',
         ],
       },
-      // .js(x) files can extend the `.babelrc` file at the root of the project
+      // .(j|t)s(x) files can extend the `.babelrc` file at the root of the project
       // (which was used to spawn Webpack in the first place), because that's
       // exactly the same polyfill config we'll want to use for this bundle
       {
-        test: /\.jsx?$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'awesome-typescript-loader',
         query: {
-          presets: [
-            'react',
-          ],
-          plugins: [
-            'transform-object-rest-spread',
-            'syntax-dynamic-import',
-          ],
+          useBabel: true,
+          babelOptions: {
+            presets: [
+              'react',
+            ],
+            plugins: [
+              'syntax-dynamic-import',
+            ],
+          },
+          useCache: true,
+          cacheDirectory: '.awcache-server',
         },
       },
     ],
