@@ -2,20 +2,16 @@
 // IMPORTS
 
 // React
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { SFC } from 'react';
 
 // GraphQL
 import { gql, graphql } from 'react-apollo';
 
 // Routing
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, match, RouteComponentProps } from 'react-router-dom';
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
-
-// Helper to merge expected React PropTypes to Apollo-enabled component
-import { mergeData } from 'kit/lib/apollo';
 
 // Styles
 import css from './styles.css';
@@ -33,19 +29,15 @@ const Home = () => (
   <h1>You&apos;re on the home page - click another link above</h1>
 );
 
+export interface PageProps {
+  match: match<{name: string}>;
+}
+
 // Helper component that will be conditionally shown when the route matches.
 // This gives you an idea how React Router v4 works
-const Page = ({ match }) => (
+const Page: SFC<RouteComponentProps<{name: string}>> = ({ match }) => (
   <h1>Changed route: {match.params.name}</h1>
 );
-
-// Specify PropTypes if the `match` object, which is injected to props by
-// the <Route> component
-Page.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.object,
-  }).isRequired,
-};
 
 // Stats pulled from the environment.  This demonstrates how data will
 // change depending where we're running the code (environment vars, etc)
@@ -78,8 +70,17 @@ const query = gql`
   }
 `;
 
+interface MessageProps {
+  data: {
+    allMessages?: Array<{
+      text: string;
+    }>;
+    loading: boolean;
+  }
+}
+
 // ... then, let's create the component to display the message
-const Message = ({ data }) => {
+const Message: SFC<MessageProps> = ({ data }) => {
   const message = data.allMessages && data.allMessages[0].text;
   const isLoading = data.loading ? 'yes' : 'nope';
   return (
@@ -90,20 +91,9 @@ const Message = ({ data }) => {
   );
 };
 
-// Add propTypes for React to expect data from GraphQL
-Message.propTypes = {
-  data: mergeData({
-    allMessages: PropTypes.arrayOf(
-      PropTypes.shape({
-        text: PropTypes.string.isRequired,
-      }).isRequired,
-    ),
-  }),
-};
-
 // Finally, wrap the component in the GraphQL HOC 'listener' which will
 // inject props data down once the GraphQL API request has been completed
-const GraphQLMessage = graphql(query)(Message);
+const GraphQLMessage = graphql(query)(Message) as SFC<{}>;
 
 // Example of CSS, SASS and LESS styles being used together
 const Styles = () => (
@@ -119,12 +109,10 @@ const Styles = () => (
 // the <Page> component based on the route name
 export default () => (
   <div>
-    <Helmet
-      title="ReactQL application"
-      meta={[{
-        name: 'description',
-        content: 'ReactQL starter kit app',
-      }]} />
+    <Helmet>
+      <title>ReactQL application</title>
+      <meta name="description" content="ReactQL starter kit app" />
+    </Helmet>
     <div className={css.hello}>
       <img src={logo} alt="ReactQL" className={css.logo} />
     </div>

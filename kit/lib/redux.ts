@@ -7,10 +7,11 @@ own reducers for store state outside of Apollo
 // ----------------------
 // IMPORTS
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { ApolloClient } from 'react-apollo';
 
 // ----------------------
 
-export default function createNewStore(apolloClient) {
+export default function createNewStore(apolloClient: ApolloClient) {
   const store = createStore(
     // By default, we'll use just the apollo reducer.  We can easily add our
     // own here, for global store management outside of Apollo
@@ -22,10 +23,10 @@ export default function createNewStore(apolloClient) {
     // eslint-disable-next-line no-underscore-dangle
     !SERVER ? window.__STATE__ : {}, // initial state
     compose(
-        applyMiddleware(apolloClient.middleware()),
-        // Enable Redux Devtools on the browser, for easy state debugging
-        // eslint-disable-next-line no-underscore-dangle
-        (!SERVER && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+      applyMiddleware(apolloClient.middleware()),
+      // Enable Redux Devtools on the browser, for easy state debugging
+      // eslint-disable-next-line no-underscore-dangle
+      (!SERVER && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f: any) => f,
     ),
   );
 

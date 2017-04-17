@@ -13,7 +13,7 @@ import WebpackConfig from 'webpack-config';
 import nodeModules from 'webpack-node-externals';
 
 // Plugin that forks TypeScript's checker to a separate process
-import { CheckerPlugin } from 'awesome-typescript-loader';
+import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 import PATHS from '../../config/paths';
 
@@ -75,7 +75,7 @@ export default new WebpackConfig().extend({
   entry: {
     javascript: [
       // Server entry point
-      path.join(PATHS.entry, 'server.js'),
+      path.join(PATHS.entry, 'server.tsx'),
     ],
   },
 
@@ -147,6 +147,12 @@ export default new WebpackConfig().extend({
         NODE_ENV: JSON.stringify('production'),
       },
     }),
+
+    // Fork TypeScript checker to a separate process
+    new CheckerPlugin(),
+
+    // Allow use of `paths` and `baseUrl`
+    new TsConfigPathsPlugin(),
   ],
   // No need to transpile `node_modules` files, since they'll obviously
   // still be available to Node.js when we run the resulting `server.js` entry

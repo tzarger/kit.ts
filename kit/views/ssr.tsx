@@ -5,11 +5,20 @@
 // ----------------------
 // IMPORTS
 import React from 'react';
-import PropTypes from 'prop-types';
+import {HelmetData} from 'react-helmet';
 
 // ----------------------
 
-const Html = ({ head, html, state, scripts, chunkManifest, css }) => (
+export interface HtmlProps {
+  head: HelmetData;
+  html: string;
+  state: any;
+  scripts: string[];
+  chunkManifest: object;
+  css: string;
+}
+
+const Html = ({ head, html, state, scripts, chunkManifest, css }: HtmlProps) => (
   <html lang="en" prefix="og: http://ogp.me/ns#">
     <head>
       <meta charSet="utf-8" />
@@ -36,14 +45,5 @@ const Html = ({ head, html, state, scripts, chunkManifest, css }) => (
     </body>
   </html>
 );
-
-Html.propTypes = {
-  head: PropTypes.object.isRequired,
-  html: PropTypes.string.isRequired,
-  state: PropTypes.object.isRequired,
-  scripts: PropTypes.arrayOf(PropTypes.string).isRequired,
-  chunkManifest: PropTypes.object.isRequired,
-  css: PropTypes.string.isRequired,
-};
 
 export default Html;

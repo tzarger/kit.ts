@@ -16,8 +16,9 @@ import webpack from 'webpack';
 // We'll use `webpack-config` to extend the base config we've already created
 import WebpackConfig from 'webpack-config';
 
-// Plugin that forks TypeScript's checker to a separate process
-import { CheckerPlugin } from 'awesome-typescript-loader';
+// CheckerPlugin: Plugin that forks TypeScript's checker to a separate process
+// TsConfigPathsPlugin: Plugin that allows use of `paths` and `baseUrl`
+import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 // other plug-ins
 // import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -35,7 +36,7 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
     // Client specific source code.  This is the stuff we write.
     browser: [
       // Entry point for the browser
-      path.join(PATHS.entry, 'browser.js'),
+      path.join(PATHS.entry, 'browser.tsx'),
     ],
   },
 
@@ -104,6 +105,9 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
 
     // Fork TypeScript checker to a separate process
     new CheckerPlugin(),
+
+    // Allow use of `paths` and `baseUrl`
+    new TsConfigPathsPlugin(),
 
     // new CopyWebpackPlugin([
     //   {

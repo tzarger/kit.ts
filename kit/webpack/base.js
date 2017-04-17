@@ -40,7 +40,7 @@ export default new WebpackConfig().merge({
   // Javascript file extensions that webpack will resolve
   resolve: {
     // I tend to use .js exclusively, but .jsx is also allowed
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
 
     // When we do an `import x from 'x'`, webpack will first look in our
     // root folder to try to resolve the package this.  This allows us to

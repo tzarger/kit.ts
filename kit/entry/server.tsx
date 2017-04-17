@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign, no-console */
-
 // Server entry point, for Webpack.  This will spawn a Koa web server
 // and listen for HTTP requests.  Clients will get a return render of React
 // or the file they have requested
@@ -183,3 +181,4 @@ const PORT = process.env.PORT || 4000;
     // Bind to the specified port
     .listen(PORT);
 }());
+
