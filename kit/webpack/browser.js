@@ -64,17 +64,18 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
               babelOptions: {
                 presets: [
                   ['env', {
-                    // By default, target only modern browsers
-                    targets: {
-                      browsers: 'last 3 versions',
-                    },
+                    // Enable tree-shaking by disabling commonJS transformation
+                    modules: false,
+                    // Exclude default regenerator-- we want to enable async/await
+                    // so we'll do that with a dedicated plugin
+                    exclude: ['transform-regenerator'],
                   }],
-                  // Transpile JSX code
-                  'react',
                 ],
                 plugins: [
+                  'transform-object-rest-spread',
                   'syntax-dynamic-import',
                   'transform-regenerator',
+                  'transform-class-properties',
                 ],
               },
               useCache: true,
@@ -109,16 +110,5 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
 
     // Allow use of `paths` and `baseUrl`
     new TsConfigPathsPlugin(),
-
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: PATHS.public,
-    //     force: true, // This flag forces overwrites
-    //   },
-    // ], {
-    //   ignore: [
-    //     '*.html', // Ignore static HTML (which we'll use to bootstrap webpack)
-    //   ],
-    // }),
   ],
 });

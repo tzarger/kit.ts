@@ -3,7 +3,7 @@
     "target": "es2017",
     "module": "es2015",
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,

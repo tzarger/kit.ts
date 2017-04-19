@@ -121,11 +121,10 @@ export default new WebpackConfig().extend({
         query: {
           useBabel: true,
           babelOptions: {
-            presets: [
-              'react',
-            ],
             plugins: [
+              'transform-object-rest-spread',
               'syntax-dynamic-import',
+              'transform-object-rest-spread',
             ],
           },
           useCache: true,
