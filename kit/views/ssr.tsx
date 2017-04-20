@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable react/no-danger, no-return-assign, no-param-reassign */
 
 // Component to render the full HTML response in React
 
@@ -12,13 +12,12 @@ import {HelmetData} from 'react-helmet';
 export interface HtmlProps {
   head: HelmetData;
   html: string;
-  state: any;
   scripts: string[];
-  chunkManifest: object;
+  window: any;
   css: string;
 }
 
-const Html = ({ head, html, state, scripts, chunkManifest, css }: HtmlProps) => (
+const Html = ({ head, html, scripts, window, css }: HtmlProps) => (
   <html lang="en" prefix="og: http://ogp.me/ns#">
     <head>
       <meta charSet="utf-8" />
@@ -28,10 +27,6 @@ const Html = ({ head, html, state, scripts, chunkManifest, css }: HtmlProps) => 
       {head.meta.toComponent()}
       <link rel="stylesheet" href={css} />
       {head.title.toComponent()}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.webpackManifest = ${JSON.stringify(chunkManifest)}`,
-        }} />
     </head>
     <body>
       <div
@@ -39,7 +34,9 @@ const Html = ({ head, html, state, scripts, chunkManifest, css }: HtmlProps) => 
         dangerouslySetInnerHTML={{ __html: html }} />
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.__STATE__ = ${JSON.stringify(state)}`,
+          __html: Object.keys(window).reduce(
+            (out, key) => out += `window.${key}=${JSON.stringify(window[key])};`,
+          ''),
         }} />
       {scripts.map(src => <script key={src} defer src={src} />)}
     </body>
