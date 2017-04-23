@@ -16,6 +16,7 @@ import Helmet from 'react-helmet';
 import {compose, pure} from 'recompose';
 
 // Styles
+import './styles.global.css';
 import css from './styles.css';
 import sass from './styles.scss';
 import less from './styles.less';
