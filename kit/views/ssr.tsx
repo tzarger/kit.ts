@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger, no-return-assign, no-param-reassign */
-
 // Component to render the full HTML response in React
 
 // ----------------------
