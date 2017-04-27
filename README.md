@@ -1,5 +1,3 @@
-# **(TS version not yet implemented; coming soon!)**
-
 <img src="https://reactql.org/docs/images/reactql-logo.svg" alt="ReactQL" width="278" height="77" />
 
 # Starter kit code (Typescript version)
@@ -26,11 +24,9 @@ Written in [Typescript](http://www.typescriptlang.org/).
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet)
 - Easily extendable [webpack-config](https://fitbit.github.io/webpack-config/) files
 - Separate local + vendor bundles, for better browser caching/faster builds
-- Dynamic polyfills, courtesy of [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Aggressive code minification with [Uglify](https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
 - [GIF/JPEG/PNG/SVG crunching](https://github.com/tcoopman/image-webpack-loader) for images
 - [Gzip compression](https://webpack.js.org/plugins/compression-webpack-plugin/) and serving of static assets as pre-compressed `.gz` files
-- [ESLint](http://eslint.org/)ing based on a tweaked [Airbnb style guide](https://github.com/airbnb/javascript)
 - Tons of commentary/documentation to fill you in on what's happening under the hood
 
 ## Usage

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Webpack entry point.  Note the .babel.js extension-- this will be parsed
 // through babel, using the `.babelrc` settings to transpile to your current
 // version of Node

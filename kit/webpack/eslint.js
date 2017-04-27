@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 import Config, { environment } from 'webpack-config';
 
 environment.setAll({

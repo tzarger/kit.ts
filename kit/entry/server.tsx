@@ -10,7 +10,7 @@
 // IMPORTS
 
 /* Node */
-import path from 'path';
+import * as path from 'path';
 
 /* NPM */
 
@@ -21,14 +21,14 @@ import 'isomorphic-fetch';
 import { readFileSync } from 'fs';
 
 // React UI
-import React from 'react';
+import * as React from 'react';
 
 // React utility to transform JSX to HTML (to send back to the client)
-import ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 
 // Koa 2 web server.  Handles incoming HTTP requests, and will serve back
 // the React render, or any of the static assets being compiled
-import Koa from 'koa';
+import * as Koa from 'koa';
 
 // Apollo tools to connect to a GraphQL server.  We'll grab the
 // `ApolloProvider` HOC component, which will inject any 'listening' React
@@ -40,13 +40,13 @@ import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import koaHelmet from 'koa-helmet';
 
 // Koa Router, for handling URL requests
-import KoaRouter from 'koa-router';
+import * as KoaRouter from 'koa-router';
 
 // Static file handler
-import koaStatic from 'koa-static';
+import * as koaStatic from 'koa-static';
 
 // High-precision timing, so we can debug response time to serve a request
-import ms from 'microseconds';
+import * as ms from 'microseconds';
 
 // React Router HOC for figuring out the exact React hierarchy to display
 // based on the URL
@@ -74,7 +74,7 @@ import App from 'src/app';
 
 // Import paths.  We'll use this to figure out where our public folder is
 // so we can serve static files
-import PATHS from 'config/paths';
+import * as PATHS from 'config/paths';
 
 // ----------------------
 

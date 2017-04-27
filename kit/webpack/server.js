@@ -1,4 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// @ts-nocheck
 
 // ----------------------
 // IMPORTS
@@ -108,14 +109,6 @@ export default new WebpackConfig().extend({
         exclude: /node_modules/,
         loader: 'awesome-typescript-loader',
         query: {
-          useBabel: true,
-          babelOptions: {
-            plugins: [
-              'transform-object-rest-spread',
-              'syntax-dynamic-import',
-              'transform-object-rest-spread',
-            ],
-          },
           useCache: true,
           cacheDirectory: '.awcache-server',
         },

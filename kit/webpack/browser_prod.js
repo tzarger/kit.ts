@@ -1,4 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// @ts-nocheck
 
 // This config generates a production-grade browser bundle.  It minifies and
 // optimises all Javascript source code, and extracts and processes CSS before

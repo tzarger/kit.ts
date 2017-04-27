@@ -2,7 +2,8 @@
 // IMPORTS
 
 // React
-import React, { SFC } from 'react';
+import * as React from 'react';
+import { SFC } from 'react';
 
 // GraphQL
 import { gql, graphql, InjectedGraphQLProps } from 'react-apollo';
@@ -17,9 +18,9 @@ import {compose, pure} from 'recompose';
 
 // Styles
 import './styles.global.css';
-import css from './styles.css';
-import sass from './styles.scss';
-import less from './styles.less';
+import * as css from './styles.css';
+import * as sass from './styles.scss';
+import * as less from './styles.less';
 
 // Get the ReactQL logo.  This is a local .svg file, which will be made
 // available as a string relative to [root]/dist/assets/img/

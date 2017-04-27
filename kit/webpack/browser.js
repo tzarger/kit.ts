@@ -1,4 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// @ts-nocheck
 
 // Browser webpack config.  This will provide the foundation settings for
 // configuring our source code to work in any modern browser
@@ -55,29 +56,11 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
       // .(j|t)s(x) loading
       {
         test: /\.(j|t)sx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|dist/,
         loaders: [
           {
             loader: 'awesome-typescript-loader',
             query: {
-              useBabel: true,
-              babelOptions: {
-                presets: [
-                  ['env', {
-                    // Enable tree-shaking by disabling commonJS transformation
-                    modules: false,
-                    // Exclude default regenerator-- we want to enable async/await
-                    // so we'll do that with a dedicated plugin
-                    exclude: ['transform-regenerator'],
-                  }],
-                ],
-                plugins: [
-                  'transform-object-rest-spread',
-                  'syntax-dynamic-import',
-                  'transform-regenerator',
-                  'transform-class-properties',
-                ],
-              },
               useCache: true,
               cacheDirectory: '.awcache-browser',
             },

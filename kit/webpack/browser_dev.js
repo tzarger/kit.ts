@@ -1,4 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// @ts-nocheck
 
 // Browser dev server.  This config will be used with `webpack-dev-server`
 // to enable hot-reloading.  Sourcemaps and full debugging is enabled.

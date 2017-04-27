@@ -1,4 +1,5 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
+// @ts-nocheck
 
 // This is our base config file.  All of our configs will extend from this,
 // so we'll define all the foundational stuff that applies to every build

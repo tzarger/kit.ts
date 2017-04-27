@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+// @ts-nocheck
 
 export const css = {
   // CSS loader configuration -- plain CSS, SASS and LESS

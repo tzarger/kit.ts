@@ -4,15 +4,12 @@
 // ----------------------
 // IMPORTS
 
-// Enable async/await and generators, cross-browser
-import 'regenerator-runtime/runtime';
-
 // Patch global.`fetch` so that Apollo calls to GraphQL work
 import 'isomorphic-fetch';
 
 // React parts
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 // Browser routing
 import { BrowserRouter } from 'react-router-dom';

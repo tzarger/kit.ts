@@ -1,3 +1,14 @@
+1.1.2 - SNAPSHOT
+------------------------------------------------
+* Removes Babel from build pipeline
+* Adds TypeScript checking by default to JS files
+* Adds `ts-plugin-graphql` to give diagnostics and code completion from graphql queries
+* Bumps `yarn.lock`
+* Update README
+ @types/node   ^7.0.12  ->  ^7.0.14
+ @types/react  ^15.0.21 ->  ^15.0.23
+ typescript    ^2.2.2   ->  ^2.3.1
+
 1.1.1 - 2017-04-24
 ------------------------------------------------
 * Adds CSSNano, for optimising resulting stylesheet code via PostCSS
