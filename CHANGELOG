@@ -1,13 +1,17 @@
-1.1.2 - SNAPSHOT
+1.1.2 - 2017-04-29
 ------------------------------------------------
+* Closes #33 - Webpack config options are not specified by `WEBPACK_CONFIG` in `package.json`
 * Removes Babel from build pipeline
 * Adds TypeScript checking by default to JS files
 * Adds `ts-plugin-graphql` to give diagnostics and code completion from graphql queries
 * Bumps `yarn.lock`
 * Update README
- @types/node   ^7.0.12  ->  ^7.0.14
- @types/react  ^15.0.21 ->  ^15.0.23
- typescript    ^2.2.2   ->  ^2.3.1
+ @types/node                ^7.0.12   →  ^7.0.15
+ @types/react               ^15.0.21  →  ^15.0.23
+ @types/react-helmet        ^5.0.1    →  ^5.0.2
+ apollo-codegen             ^0.10.11  →  ^0.10.13
+ awesome-typescript-loader  ^3.1.2    →  ^3.1.3
+ typescript                 ^2.2.2    →  ^2.3.2
 
 1.1.1 - 2017-04-24
 ------------------------------------------------
