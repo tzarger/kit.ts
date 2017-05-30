@@ -54,10 +54,34 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
   module: {
     loaders: [
       // .(j|t)s(x) loading
+
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules|dist/,
         loaders: [
+          {
+            loader: 'babel-loader',
+            query: {
+              // Ignore the .babelrc at the root of our project-- that's only
+              // used to compile our webpack settings, NOT for bundling
+              babelrc: false,
+              presets: [
+                ['env', {
+                  // Enable tree-shaking by disabling commonJS transformation
+                  modules: false,
+                  // Exclude default regenerator-- we want to enable async/await
+                  // so we'll do that with a dedicated plugin
+                  exclude: ['transform-regenerator'],
+                }],
+                // Transpile JSX code
+                'react',
+              ],
+              plugins: [
+                'syntax-dynamic-import',
+                'transform-regenerator',
+              ],
+            },
+          },
           {
             loader: 'awesome-typescript-loader',
             query: {

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "preserve",
     "allowJs": true,
     "checkJs": true,
     "emitDecoratorMetadata": true,
@@ -19,11 +19,6 @@
     "sourceMap": true,
     "types": [
       "node"
-    ],
-    "lib": [
-      "es5",
-      "es2015.promise",
-      "dom"
     ],
     "baseUrl": ".",
     "plugins": [

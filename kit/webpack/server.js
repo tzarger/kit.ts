@@ -107,11 +107,26 @@ export default new WebpackConfig().extend({
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
-        loader: 'awesome-typescript-loader',
-        query: {
-          useCache: true,
-          cacheDirectory: '.awcache-server',
-        },
+        loaders: [
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: [
+                'react',
+              ],
+              plugins: [
+                'syntax-dynamic-import',
+              ],
+            },
+          },
+          {
+            loader: 'awesome-typescript-loader',
+            query: {
+              useCache: true,
+              cacheDirectory: '.awcache-server',
+            },
+          }
+        ]
       },
     ],
   },
