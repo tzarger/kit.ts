@@ -12,7 +12,7 @@ export interface HtmlProps {
   html: string;
   scripts: string[];
   window: any;
-  css: string;
+  css?: string;
 }
 
 const Html = ({ head, html, scripts, window, css }: HtmlProps) => (
@@ -23,7 +23,7 @@ const Html = ({ head, html, scripts, window, css }: HtmlProps) => (
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       {head.meta.toComponent()}
-      <link rel="stylesheet" href={css} />
+      {css && <link rel="stylesheet" href={css} />}
       {head.title.toComponent()}
     </head>
     <body>

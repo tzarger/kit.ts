@@ -7,22 +7,18 @@
 // ----------------------
 // IMPORTS
 
-// Node's built-in `path` module.  We'll use this to determine the entry
-// `browser.js` entry point
+/* Node */
 import path from 'path';
 
-// Webpack 2 is our bundler of choice.
+/* NPM */
 import webpack from 'webpack';
-
-// We'll use `webpack-config` to extend the base config we've already created
 import WebpackConfig from 'webpack-config';
 
 // CheckerPlugin: Plugin that forks TypeScript's checker to a separate process
 // TsConfigPathsPlugin: Plugin that allows use of `paths` and `baseUrl`
 import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
-// other plug-ins
-// import CopyWebpackPlugin from 'copy-webpack-plugin';
+/* Local */
 
 // Our local path configuration, so webpack knows where everything is/goes
 import PATHS from '../../config/paths';

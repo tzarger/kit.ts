@@ -9,12 +9,21 @@ import { SFC } from 'react';
 import { gql, graphql, InjectedGraphQLProps } from 'react-apollo';
 
 // Routing
-import { Link, Route, match, RouteComponentProps } from 'react-router-dom';
+import {
+  match,
+  Link,
+  Route,
+  RouteComponentProps,
+  Switch,
+} from 'react-router-dom';
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
 
 import {compose, pure} from 'recompose';
+
+// NotFound 404 handler for unknown routes
+import { NotFound } from 'kit/lib/routing';
 
 // Styles
 import './styles.global.css';
@@ -50,7 +59,6 @@ const Page: SFC<RouteComponentProps<{name: string}>> = ({ match }) => (
 const Stats = () => {
   const info = [
     ['Environment', process.env.NODE_ENV],
-    ['Running', SERVER ? 'On the server' : 'In the browser'],
   ];
 
   return (
@@ -129,8 +137,11 @@ export default () => (
       <li><Link to="/page/contact">Contact</Link></li>
     </ul>
     <hr />
-    <Route exact path="/" component={Home} />
-    <Route path="/page/:name" component={Page} />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/page/:name" component={Page} />
+      <Route component={NotFound as React.ComponentClass<any>} />
+    </Switch>
     <hr />
     <p>Runtime info:</p>
     <Stats />

@@ -4,7 +4,7 @@
 // ----------------------
 // IMPORTS
 
-import path from 'path';
+/* NPM */
 import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
 
@@ -16,10 +16,8 @@ import nodeModules from 'webpack-node-externals';
 // Plugin that forks TypeScript's checker to a separate process
 import { CheckerPlugin, TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
-// Common config
+/* Local */
 import { css } from './common';
-
-import PATHS from '../../config/paths';
 
 // ----------------------
 
@@ -44,17 +42,6 @@ export default new WebpackConfig().extend({
         }
       });
     });
-
-    // Optimise images
-    conf.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
-      .loaders.push({
-        // `image-webpack-loader` is used on the server build even `emitFile`
-        // on `fileLoader` disabled so that the correct hash can be generated.
-        loader: 'image-webpack-loader',
-        // workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
-        options: {},
-      });
-
     return conf;
   },
 }).merge({
@@ -62,22 +49,8 @@ export default new WebpackConfig().extend({
   // Set the target to Node.js, since we'll be running the bundle on the server
   target: 'node',
 
-  // Output to the `dist` folder
-  output: {
-    path: PATHS.dist,
-    filename: 'server.js',
-  },
-
-  entry: {
-    javascript: [
-      // Server entry point
-      path.join(PATHS.entry, 'server.tsx'),
-    ],
-  },
-
-  // Make __dirname work properly
   node: {
-    __dirname: true,
+    __dirname: false,
   },
 
   module: {
@@ -134,14 +107,6 @@ export default new WebpackConfig().extend({
     new webpack.DefinePlugin({
       // We're running on the Node.js server, so set `SERVER` to true
       SERVER: true,
-
-      // React constantly checking process.env.NODE_ENV causes massive
-      // slowdowns during rendering. Replacing process.env.NODE_ENV
-      // with a string not only removes this expensive check, it allows
-      // a minifier to remove all of React's warnings in production.
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
     }),
 
     // Fork TypeScript checker to a separate process

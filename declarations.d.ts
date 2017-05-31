@@ -36,3 +36,13 @@ declare module '*.svg' {
   const _: string;
   export default _;
 }
+
+declare module 'boxen' {
+  export interface BoxenOptions {
+    padding?: number;
+    borderColor?: string;
+    margin?: number;
+  }
+
+  export default function(message: string, options: BoxenOptions): string;
+}
