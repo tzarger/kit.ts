@@ -17,13 +17,14 @@ import * as ip from 'ip';
 
 // ----------------------
 
-/**
- *
- *
- * @export
- * @param {{type?: string, host?: string, port?: number, chalk?: chalk.ChalkChain}} [opt={}]
- */
-export function logServerStarted(opt = {}) {
+export interface LogServerStartedOptions {
+  chalk?: chalk.ChalkChain;
+  type?: string;
+  host?: string;
+  port?: number;
+}
+
+export function logServerStarted(opt: LogServerStartedOptions = {}) {
   let message = chalk.green(`Running ${(opt.chalk || chalk.bold)(opt.type ? opt.type : '')} in ${chalk.bold(process.env.NODE_ENV)} mode\n\n`);
 
   const localURL = `http://${opt.host}:${opt.port}`;
