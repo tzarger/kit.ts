@@ -46,3 +46,25 @@ declare module 'boxen' {
 
   export default function(message: string, options: BoxenOptions): string;
 }
+
+declare module 'koa-send' {
+  import * as Koa from 'koa';
+
+  interface ISendOptions {
+      root?: string;
+      index?: string;
+      maxAge?: number;
+      hidden?: boolean;
+      format?: boolean;
+      gzip?: boolean;
+      immutable?: boolean;
+      setHeaders?: Function;
+      extensions?: string[];
+  }
+
+  function send(ctx: Koa.Context, path: string, opts?: ISendOptions): Promise<string>;
+
+  namespace send {}
+
+  export = send;
+}

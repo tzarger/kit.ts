@@ -36,7 +36,7 @@ const Html = ({ head, html, scripts, window, css }: HtmlProps) => (
             (out, key) => out += `window.${key}=${JSON.stringify(window[key])};`,
           ''),
         }} />
-      {scripts.map(src => <script key={src} defer src={src} />)}
+      {scripts.map(src => <script key={src} src={src} />)}
     </body>
   </html>
 );
