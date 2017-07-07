@@ -23,7 +23,7 @@ import Helmet from 'react-helmet';
 import {compose, pure} from 'recompose';
 
 // NotFound 404 handler for unknown routes
-import { NotFound } from 'kit/lib/routing';
+import { NotFound, Redirect } from 'kit/lib/routing';
 
 // Styles
 import './styles.global.css';
@@ -50,6 +50,13 @@ export interface PageProps {
 // This gives you an idea how React Router v4 works
 const Page: SFC<RouteComponentProps<{name: string}>> = ({ match }) => (
   <h1>Changed route: {match.params.name}</h1>
+);
+
+// Create a route that will be displayed when the code isn't found
+const WhenNotFound = () => (
+  <NotFound>
+    <h1>Unknown route - the 404 handler was triggered!</h1>
+  </NotFound>
 );
 
 // Stats pulled from the environment.  This demonstrates how data will
@@ -135,12 +142,14 @@ export default () => (
       <li><Link to="/">Home</Link></li>
       <li><Link to="/page/about">About</Link></li>
       <li><Link to="/page/contact">Contact</Link></li>
+      <li><Link to="/old/path">Redirect from /old/path &#8594; /new/path</Link></li>
     </ul>
     <hr />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/page/:name" component={Page} />
-      <Route component={NotFound as React.ComponentClass<any>} />
+      <Redirect from="/old/path" to="/new/path" />
+      <Route component={WhenNotFound} />
     </Switch>
     <hr />
     <p>Runtime info:</p>

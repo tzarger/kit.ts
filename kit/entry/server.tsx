@@ -93,11 +93,16 @@ export function staticMiddleware() {
   } as Koa.Middleware;
 }
 
+export interface RouteContext {
+  status: number;
+  url: string;
+}
+
 // Function to create a React handler, per the environment's correct
 // manifest files
 export function createReactHandler(css?: string, scripts: string[] = [], chunkManifest = {}) {
   return async function reactHandler(ctx: Koa.Context) {
-    const routeContext = {};
+    const routeContext: RouteContext = {} as any;
 
     // Create a new server Apollo client for this request
     const client = serverClient();
@@ -123,7 +128,25 @@ export function createReactHandler(css?: string, scripts: string[] = [], chunkMa
     // Full React HTML render
     const html = ReactDOMServer.renderToString(components);
 
-    // TODO add redirect handling
+    // Handle redirects
+    if ([301, 302].includes(routeContext.status)) {
+      // 301 = permanent redirect, 302 = temporary
+      ctx.status = routeContext.status;
+
+      // Issue the new `Location:` header
+      ctx.redirect(routeContext.url);
+
+      // Return early -- no need to set a response body
+      return;
+    }
+
+    // Handle 404 Not Found
+    if (routeContext.status === 404) {
+      // By default, just set the status code to 404.  You can add your
+      // own custom logic here, if you want to redirect to a permanent
+      // 404 route or set a different response on `ctx.body`
+      ctx.status = routeContext.status;
+    }
 
     // Render the view with our injected React data.  We'll pass in the
     // Helmet component to generate the <head> tag, as well as our Redux
@@ -139,8 +162,6 @@ export function createReactHandler(css?: string, scripts: string[] = [], chunkMa
         css={css}
         scripts={scripts} />,
     )}`;
-
-    return true;
   };
 }
 
