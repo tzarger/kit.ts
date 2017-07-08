@@ -16,7 +16,7 @@ export default function createNewStore(apolloClient: ApolloClient) {
     // By default, we'll use just the apollo reducer.  We can easily add our
     // own here, for global store management outside of Apollo
     combineReducers({
-      apollo: apolloClient.reducer(),
+      apollo: apolloClient.reducer() as any,
     }),
     // Initial server state, provided by the server.  Only relevant in the
     // browser -- on the server, we'll start with a blank object

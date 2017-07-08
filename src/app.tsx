@@ -6,7 +6,7 @@ import * as React from 'react';
 import { SFC } from 'react';
 
 // GraphQL
-import { gql, graphql, InjectedGraphQLProps } from 'react-apollo';
+import { gql, graphql } from 'react-apollo';
 
 // Routing
 import {
@@ -19,8 +19,6 @@ import {
 
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
-
-import {compose, pure} from 'recompose';
 
 // NotFound 404 handler for unknown routes
 import { NotFound, Redirect } from 'kit/lib/routing';
@@ -98,12 +96,22 @@ interface MessageData {
 // ... then, let's create the component and decorate it with the `graphql`
 // HOC that will automatically populate `this.props` with the query data
 // once the GraphQL API request has been completed
-const connect = compose<InjectedGraphQLProps<MessageData>, {}>(
-  graphql(query),
-  pure
-);
+// @graphql(query)
+// class GraphQLMessage extends React.PureComponent<any, any> {
 
-const GraphQLMessage = connect(({data}) => {
+//   render() {
+//     const message = this.props.data.allMessages && this.props.data.allMessages![0].text;
+//     const isLoading = this.props.data.loading ? 'yes' : 'nope';
+//     return (
+//       <div>
+//         <h2>Message from GraphQL server: <em>{message}</em></h2>
+//         <h2>Currently loading?: {isLoading}</h2>
+//       </div>
+//     );
+//   }
+// };
+
+const GraphQLMessage = graphql<MessageData>(query)(({ data }) => {
   const message = data!.allMessages && data!.allMessages![0].text;
   const isLoading = data!.loading ? 'yes' : 'nope';
   return (
