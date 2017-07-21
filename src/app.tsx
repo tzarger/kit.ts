@@ -1,12 +1,14 @@
 // ----------------------
 // IMPORTS
 
+/* NPM */
+
 // React
 import * as React from 'react';
 import { SFC } from 'react';
 
 // GraphQL
-import { gql, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
 // Routing
 import {
@@ -20,8 +22,12 @@ import {
 // <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
 
+/* Local */
+
 // NotFound 404 handler for unknown routes
 import { NotFound, Redirect } from 'kit/lib/routing';
+
+const allMessages = require('src/queries/all_messages.gql');
 
 // Styles
 import './styles.global.css';
@@ -77,16 +83,6 @@ const Stats = () => {
 
 // Now, let's create a GraphQL-enabled component...
 
-// First, create the GraphQL query that we'll use to request data from our
-// sample endpoint
-const query = gql`
-  query {
-    allMessages(first:1) {
-      text
-    }
-  }
-`;
-
 interface MessageData {
   allMessages?: Array<{
     text: string;
@@ -111,7 +107,7 @@ interface MessageData {
 //   }
 // };
 
-const GraphQLMessage = graphql<MessageData>(query)(({ data }) => {
+const GraphQLMessage = graphql<MessageData>(allMessages)(({ data }) => {
   const message = data!.allMessages && data!.allMessages![0].text;
   const isLoading = data!.loading ? 'yes' : 'nope';
   return (

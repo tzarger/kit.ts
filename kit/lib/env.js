@@ -66,7 +66,7 @@ export function getBrowserPort() {
   if (port) return port;
 
   // No clue from the environment -- work it out ourselves
-  return defaultPorts[process.env.NODE_ENV as 'development'].browser;
+  return defaultPorts[isProduction ? 'production' : 'development'].browser;
 }
 
 // Get the server port, based on the current environment
@@ -75,7 +75,7 @@ export function getServerPort() {
   if (port) return port;
 
   // No clue from the environment -- work it out ourselves
-  return defaultPorts[process.env.NODE_ENV as 'development' | 'production'].server;
+  return defaultPorts[isProduction ? 'production' : 'development'].server;
 }
 
 // Get the protocol://host:port of where the current server would bind
